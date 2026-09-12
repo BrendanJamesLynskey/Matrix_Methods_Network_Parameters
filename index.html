@@ -146,8 +146,10 @@
         <li><a href="#slide-13">Passivity is the hard part</a></li>
         <li><a href="#slide-14">Conversions and the Smith chart</a></li>
         <li><a href="#slide-15">Interactive: the bilinear map</a></li>
-        <li><a href="#slide-16">Where this shows up</a></li>
-        <li><a href="#slide-17">Cheat sheet</a></li>
+        <li><a href="#slide-16">Mixed-mode: differential pairs done properly</a></li>
+        <li><a href="#slide-17">Interactive: skew and mode conversion</a></li>
+        <li><a href="#slide-18">Where this shows up</a></li>
+        <li><a href="#slide-19">Cheat sheet</a></li>
     </ul>
 </section>
 
@@ -776,6 +778,125 @@
 
 <section class="slide" id="slide-16">
     <div class="slide-number">16</div>
+    <h2>Mixed-Mode: Differential Pairs Done Properly</h2>
+    <p>A differential pair on a VNA is a <strong>four-port</strong>: two single-ended ports at
+    the near end, one per conductor, and two at the far end. That 4&times;4 matrix says nothing
+    directly about differential behaviour, because differential and common mode are
+    <em>combinations</em> of the single-ended variables:</p>
+    <p>$$v_d = v_P - v_N, \qquad v_c = \tfrac{1}{2}(v_P + v_N).$$</p>
+    <p>Order the single-ended ports 1, 2 as the near-end pair and 3, 4 as the far-end pair, and
+    the mixed-mode vector as $(d_1, d_2, c_1, c_2)$. Then the change of variables is one
+    matrix:</p>
+    <p>$$\mathbf{M} = \frac{1}{\sqrt2}\begin{pmatrix}
+       1 & -1 & 0 & 0 \\ 0 & 0 & 1 & -1 \\ 1 & 1 & 0 & 0 \\ 0 & 0 & 1 & 1
+       \end{pmatrix}, \qquad
+       \mathbf{S}_{mm} = \mathbf{M}\,\mathbf{S}\,\mathbf{M}^{\mathsf{T}}.$$</p>
+    <p>The $1/\sqrt2$ makes $\mathbf{M}$ orthogonal, so $\mathbf{M}^{-1} =
+    \mathbf{M}^{\mathsf{T}}$ and this is a <strong>similarity transform</strong> — the same
+    linear operator in a different basis, exactly as on slide 01. Nothing is measured twice.</p>
+
+    <div class="callout">
+        <div class="callout-label">Why the basis change costs nothing</div>
+        <p>An orthogonal $\mathbf{M}$ is a rotation of wave space, and rotations preserve
+        eigenvalues and singular values. Every test on slides 02, 03, 07 and 13 — reciprocity,
+        passivity, losslessness, the Hamiltonian search — returns the same answer in either
+        basis. Mixed mode reorganises the information into the combinations an engineer cares
+        about; it adds none and destroys none.</p>
+    </div>
+
+    <h3>The four quadrants</h3>
+    <table>
+        <thead><tr><th>Block</th><th>What it describes</th><th>Why you look at it</th></tr></thead>
+        <tbody>
+            <tr><td>$\mathbf{S}_{dd}$</td><td>Differential in, differential out</td><td>The actual signal path. $S_{dd21}$ is the insertion loss that sets how much equalisation a link needs; $S_{dd11}$ the differential return loss</td></tr>
+            <tr><td>$\mathbf{S}_{cc}$</td><td>Common in, common out</td><td>How common-mode energy propagates — whether a choke or ferrite will achieve anything, and how much common-mode current reaches a cable</td></tr>
+            <tr><td>$\mathbf{S}_{cd}$</td><td>Differential in, common out</td><td>Your own signal leaking into common mode. Common-mode current on a cable radiates efficiently — this is the quadrant that fails an EMC scan</td></tr>
+            <tr><td>$\mathbf{S}_{dc}$</td><td>Common in, differential out</td><td>External common-mode noise arriving as differential noise at the receiver. Lands straight on the eye</td></tr>
+        </tbody>
+    </table>
+    <p>If the two halves of the pair are genuinely identical, the off-diagonal blocks
+    <strong>vanish</strong> and $\mathbf{S}_{mm}$ is block diagonal. Every non-zero entry in
+    $\mathbf{S}_{cd}$ or $\mathbf{S}_{dc}$ is a calibrated measure of how asymmetric the pair
+    really is — a far more useful thing to hand a layout engineer than a vague complaint
+    about EMC.</p>
+
+    <div class="callout">
+        <div class="callout-label">The port-numbering trap</div>
+        <p>Touchstone records the numbers but not what the ports were connected to, and two
+        conventions are in use: 1&ndash;2 / 3&ndash;4 as near and far pairs, or 1&ndash;3 /
+        2&ndash;4 as the two conductors. Apply the wrong $\mathbf{M}$ and the blocks permute —
+        most visibly $\mathbf{S}_{dd}$ swaps with $\mathbf{S}_{cc}$ — giving plots that look
+        like a catastrophic channel. Sanity check: $S_{dd21}$ should be the <em>least</em>
+        lossy trace on the chart. If it looks like rubbish while $S_{cc21}$ looks pristine,
+        you have the permutation backwards, not a broken board.</p>
+    </div>
+</section>
+
+<section class="slide" id="slide-17">
+    <div class="slide-number">17</div>
+    <h2>Interactive: Skew and Mode Conversion</h2>
+    <p>The cleanest asymmetry to work through is <strong>intra-pair skew</strong>. Take two
+    conductors identical in every respect except that one is electrically longer by $\Delta t$.
+    Split the delay symmetrically, drive differentially, and the far-end modes come out as</p>
+    <p>$$|S_{dd21}| = |H|\cos(\pi f \Delta t), \qquad
+       |S_{cd21}| = |H|\sin(\pi f \Delta t).$$</p>
+    <p>Energy the differential mode loses turns up in the common mode, exactly and without
+    waste. Note how differently the two respond.</p>
+
+    <div class="control-panel">
+        <div class="control-row">
+            <label for="sk-dt">skew $\Delta t$ (ps)</label>
+            <input type="range" id="sk-dt" min="0" max="12" step="0.1" value="2">
+            <span class="val" id="sk-dt-val">2.0</span>
+        </div>
+        <div class="control-row">
+            <label for="sk-f">Nyquist frequency (GHz)</label>
+            <input type="range" id="sk-f" min="2" max="40" step="0.25" value="14">
+            <span class="val" id="sk-f-val">14.0</span>
+        </div>
+        <div class="control-row">
+            <button class="btn" data-sk="2,14">28 GBd NRZ, 2 ps</button>
+            <button class="btn" data-sk="5,26.56">53 GBd PAM4, 5 ps</button>
+            <button class="btn secondary" data-sk="0.5,14">well-matched pair</button>
+        </div>
+        <div class="metric-grid">
+            <div class="metric"><div class="metric-label">$|S_{cd21}|$ at Nyquist</div><div class="metric-value" id="sk-conv">&minus;21.1 dB</div></div>
+            <div class="metric"><div class="metric-label">$|S_{dd21}|$ penalty</div><div class="metric-value" id="sk-pen">0.03 dB</div></div>
+            <div class="metric"><div class="metric-label">Converted power</div><div class="metric-value" id="sk-pc">0.8%</div></div>
+            <div class="metric"><div class="metric-label">First $S_{dd21}$ null</div><div class="metric-value" id="sk-null">250 GHz</div></div>
+        </div>
+        <div id="sk-verdict" class="verdict ok">conversion below &minus;20 dBc</div>
+    </div>
+
+    <div class="canvas-wrap">
+        <canvas id="sk-plot" width="780" height="290"></canvas>
+        <div class="legend">
+            <span><i style="background:#f472b6"></i>$|S_{cd21}|$ — mode conversion</span>
+            <span><i style="background:#22d3ee"></i>$|S_{dd21}|$ — differential penalty</span>
+            <span><i style="background:#fbbf24"></i>Nyquist</span>
+        </div>
+    </div>
+
+    <div class="callout">
+        <div class="callout-label">The practical reading</div>
+        <p>$S_{dd21}$ is almost blind to skew, so a channel can look perfectly healthy on the
+        plot everyone shows in review while radiating badly. $S_{cd21}$ is the sensitive
+        instrument, and it is the one to put a limit line on. Usual causes: unequal path
+        lengths where a pair turns a corner or dodges a via; asymmetric barrels, antipads and
+        connector footprints; and — most awkwardly — <strong>fibre weave</strong>, where one
+        conductor runs over glass bundles and the other over resin, giving them different
+        effective permittivity. Weave skew accumulates with length, which is why long pairs
+        are routed at a slight angle to the weave or on spread-glass laminate.</p>
+    </div>
+
+    <p class="note">Mode conversion is <em>not</em> loss. The energy changes mode rather than
+    disappearing, and the four-port stays perfectly passive — the singular values are
+    untouched, as the orthogonality of $\mathbf{M}$ guarantees. The trouble is that the energy
+    is now in a mode the receiver does not read and an enclosure does not contain.</p>
+</section>
+
+<section class="slide" id="slide-18">
+    <div class="slide-number">18</div>
     <h2>Where This Shows Up</h2>
 
     <div class="diagram-grid cols-2">
@@ -799,8 +920,8 @@
                 <li>Into SPICE / IBIS-AMI as macromodels for eye diagrams and BER.</li>
                 <li>Those macromodels come from vector fitting (slide 12) with passivity
                 enforcement (slide 13).</li>
-                <li>Mixed-mode $\mathbf{S}$ is a fixed similarity transform of the
-                single-ended matrix, not a new measurement.</li>
+                <li>Mixed-mode $\mathbf{S}$ (slide 16) turns the four-port into the
+                differential and common channels a link budget is written in.</li>
                 <li>SerDes FFE/DFE taps are the Hermitian PSD least-squares problem of the
                 companion deck.</li>
             </ul>
@@ -808,8 +929,8 @@
     </div>
 </section>
 
-<section class="slide" id="slide-17">
-    <div class="slide-number">17</div>
+<section class="slide" id="slide-19">
+    <div class="slide-number">19</div>
     <h2>Cheat Sheet</h2>
 
     <table>
@@ -819,6 +940,7 @@
             <tr><td>Passivity</td><td>$\mathbf{Z}_{\mathsf{H}} \succeq 0$, equivalently $\sigma(\mathbf{S}) \le 1$ at every $\omega$</td><td>PSD and contraction</td></tr>
             <tr><td>Losslessness</td><td>$\mathbf{S}^{\mathsf{H}}\mathbf{S} = \mathbf{I}$</td><td>$|\lambda(\mathbf{S})| = 1$ &mdash; the eigenvalue plane</td></tr>
             <tr><td>Resonance or null</td><td>Pole near the $j\omega$-axis, or zero on it; $Q \approx \omega_0/2\sigma$</td><td>Distance from the $j\omega$-axis</td></tr>
+            <tr><td>Pair is symmetric</td><td>$S_{cd21}$ small across the band</td><td>Off-diagonal mixed-mode blocks vanish for a symmetric pair</td></tr>
             <tr><td>Safe to simulate</td><td>LHP poles plus Hamiltonian passivity enforcement</td><td>No RHP poles; $\sigma \le 1$ everywhere</td></tr>
         </tbody>
     </table>
@@ -1116,6 +1238,75 @@ function dashed(ctx, on) { ctx.setLineDash(on ? [4, 4] : []); }
           X(6.15) - 12, Y(1.13), C.pink, 10, 'right');
     ctx.strokeStyle = C.pink; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(X(6.15) - 8, Y(1.125)); ctx.lineTo(X(6.15) - 1, Y(1.075)); ctx.stroke();
+})();
+
+/* ---------- 17 : skew and mode conversion ------------------------------ */
+(function () {
+    const { ctx, w, h } = hidpi('sk-plot');
+    const sDt = document.getElementById('sk-dt'), sF = document.getElementById('sk-f');
+    const FMAX = 45;   // GHz
+
+    function draw(dt, fn) {
+        clear(ctx, w, h);
+        const padL = 52, padR = 16, padT = 26, padB = 32;
+        const DBMIN = -50, DBMAX = 4;
+        const X = g => padL + g / FMAX * (w - padL - padR);
+        const Y = d => h - padB - (d - DBMIN) / (DBMAX - DBMIN) * (h - padT - padB);
+        ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
+        for (let d = DBMIN; d <= DBMAX; d += 10) {
+            ctx.beginPath(); ctx.moveTo(padL, Y(d)); ctx.lineTo(w - padR, Y(d)); ctx.stroke();
+            label(ctx, d + '', padL - 6, Y(d) + 3, C.dim, 9, 'right');
+        }
+        const curve = (fn2, col, lw) => {
+            ctx.strokeStyle = col; ctx.lineWidth = lw;
+            ctx.beginPath();
+            for (let i = 0; i <= 900; i++) {
+                const g = i / 900 * FMAX;
+                const db = 20 * Math.log10(Math.max(Math.abs(fn2(g)), 1e-6));
+                const yy = Math.max(padT, Math.min(h - padB, Y(db)));
+                if (i === 0) ctx.moveTo(X(g), yy); else ctx.lineTo(X(g), yy);
+            }
+            ctx.stroke();
+        };
+        curve(g => Math.sin(Math.PI * g * dt / 1000), C.pink, 1.9);
+        curve(g => Math.cos(Math.PI * g * dt / 1000), C.accent, 1.9);
+        ctx.strokeStyle = C.amber; ctx.lineWidth = 1.2; dashed(ctx, true);
+        ctx.beginPath(); ctx.moveTo(X(fn), padT); ctx.lineTo(X(fn), h - padB); ctx.stroke();
+        dashed(ctx, false);
+        label(ctx, 'relative to the through response, dB', padL - 6, padT - 8, C.text, 10);
+        label(ctx, 'frequency (GHz)', w - padR, h - 8, C.dim, 10, 'right');
+        label(ctx, fn.toFixed(1), X(fn), h - 8, C.amber, 9, 'center');
+        label(ctx, '0', padL, h - 8, C.dim, 9, 'center');
+    }
+
+    function update() {
+        const dt = parseFloat(sDt.value), fn = parseFloat(sF.value);
+        document.getElementById('sk-dt-val').textContent = dt.toFixed(1);
+        document.getElementById('sk-f-val').textContent = fn.toFixed(1);
+        const th = Math.PI * fn * dt / 1000;           // f in GHz, dt in ps
+        const conv = Math.abs(Math.sin(th)), keep = Math.abs(Math.cos(th));
+        document.getElementById('sk-conv').textContent = conv < 1e-6
+            ? '−∞ dB' : '−' + Math.abs(20 * Math.log10(conv)).toFixed(1) + ' dB';
+        document.getElementById('sk-pen').textContent =
+            Math.abs(20 * Math.log10(Math.max(keep, 1e-9))).toFixed(2) + ' dB';
+        document.getElementById('sk-pc').textContent = (100 * conv * conv).toFixed(1) + '%';
+        document.getElementById('sk-null').textContent = dt > 0.01
+            ? (500 / dt).toFixed(0) + ' GHz' : 'none';
+        const db = conv < 1e-6 ? -999 : 20 * Math.log10(conv);
+        const v = document.getElementById('sk-verdict');
+        if (db < -25) { v.className = 'verdict ok'; v.textContent = 'conversion below −25 dBc: comfortable'; }
+        else if (db < -20) { v.className = 'verdict ok'; v.textContent = 'conversion below −20 dBc: typical limit line'; }
+        else { v.className = 'verdict bad'; v.textContent = 'conversion above −20 dBc: expect EMC trouble and lost margin'; }
+        draw(dt, fn);
+    }
+    [sDt, sF].forEach(e => e.addEventListener('input', update));
+    document.querySelectorAll('[data-sk]').forEach(b => {
+        b.addEventListener('click', () => {
+            const [d, f] = b.dataset.sk.split(',');
+            sDt.value = d; sF.value = f; update();
+        });
+    });
+    update();
 })();
 
 /* ---------- 15 : the bilinear map / Smith chart ------------------------ */
