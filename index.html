@@ -135,6 +135,7 @@
         <li><a href="#slide-03">Passivity is positive semidefiniteness</a></li>
         <li><a href="#slide-04">Why travelling waves are the natural variables</a></li>
         <li><a href="#slide-05">What an S-parameter actually is</a></li>
+        <li><a href="#slide-14">Voltage waves, power waves and pseudo-waves</a></li>
         <li><a href="#slide-06">What a scattering measurement cannot tell you</a></li>
         <li><a href="#slide-07">Lossless is unitary, passive is a contraction</a></li>
         <li><a href="#slide-08">Interactive: two-port scattering explorer</a></li>
@@ -302,14 +303,15 @@
 <section class="slide" id="slide-05">
     <div class="slide-number">05</div>
     <h2>What an S-Parameter Actually Is</h2>
-    <p>Define at each port a pair of power-wave amplitudes referred to the real reference
-    impedance $Z_0$ (Kurokawa's normalisation):</p>
-    <p>$$a_i = \frac{V_i + Z_0 I_i}{2\sqrt{Z_0}}, \qquad
-       b_i = \frac{V_i - Z_0 I_i}{2\sqrt{Z_0}},$$</p>
-    <p>normalised so that $|a_i|^2$ is the power flowing <em>into</em> port $i$ and $|b_i|^2$
-    the power flowing <em>out</em> of it. The scattering matrix is the map between them,
-    $\mathbf{b} = \mathbf{S}\mathbf{a}$. Entry by entry,</p>
-    <p>$$S_{ij} = \left.\frac{b_i}{a_j}\right|_{a_k = 0,\ k \neq j}$$</p>
+    <p>Start with what is physically on the line. At a port on a transmission line of
+    characteristic impedance $Z_0$, the total voltage and current are the superposition of a
+    wave heading into the network and one heading back out:</p>
+    <p>$$V = V^{+} + V^{-}, \qquad I = \frac{V^{+} - V^{-}}{Z_0},$$</p>
+    <p>$$V^{+} = \frac{V + Z_0 I}{2}, \qquad V^{-} = \frac{V - Z_0 I}{2}.$$</p>
+    <p>These are <strong>voltages, in volts</strong>. They are what a TDR displays and what
+    superposes at an impedance discontinuity. A scattering parameter is a ratio of one of
+    them to another:</p>
+    <p>$$S_{ij} = \left.\frac{V_i^{-}}{V_j^{+}}\right|_{V_k^{+} = 0,\ k \neq j}$$
     <p>&mdash; that is, with every other port terminated in $Z_0$ so nothing is incident there.
     In words: <strong>$S_{ij}$ is the complex ratio of the wave leaving port $i$ to the wave
     arriving at port $j$</strong>, and being complex it carries a magnitude and a phase.</p>
@@ -330,6 +332,15 @@
     <p>In general the diagonal entries are reflections and the off-diagonal entries are
     transmissions, and <strong>the second subscript is always the port you drove</strong>.</p>
 
+    <p>It is often convenient to rescale as $a_i = V_i^{+}/\sqrt{Z_0}$ and
+    $b_i = V_i^{-}/\sqrt{Z_0}$, so that $|a_i|^2$ is the power into port $i$ and $|b_i|^2$
+    the power out of it, and the matrix becomes $\mathbf{b} = \mathbf{S}\mathbf{a}$. The
+    rescaling is by a constant common to every port, so it cancels from every ratio and
+    leaves each $S_{ij}$ untouched; its only job is to let the power bookkeeping of slide 07
+    be written without dragging factors of $1/2Z_0$ around. With $Z_0$ real these are also
+    Kurokawa's <em>power waves</em> &mdash; the two descriptions part company only at a
+    complex reference, which slide 14 returns to.</p>
+
     <div class="callout">
         <div class="callout-label">Reading the numbers on the bench</div>
         <p>Send 1&nbsp;W into port 1 with the other port matched. A fraction $|S_{11}|^2$ comes
@@ -337,7 +348,12 @@
         tenth of the power reflected and $|S_{21}| = -3$&nbsp;dB means about half gets through.
         One trap: cascading is <em>not</em> matrix multiplication of $\mathbf{S}$, because the
         wave leaving the first component is partly reflected by the second and returns to be
-        re-reflected. Convert to ABCD or T, multiply there, convert back.</p>
+        re-reflected. Convert to ABCD or T, multiply there, convert back. A
+        second trap is the decibel convention: $S_{21}$ is a ratio of wave <em>amplitudes</em>,
+        so $|S_{21}|$ is a voltage ratio while $|S_{21}|^2$ is the power ratio, and the figure
+        on every datasheet is $20\log|S_{21}|$, not $10\log$. Halving the voltage is
+        &minus;6&nbsp;dB and quarters the power; &minus;3&nbsp;dB is $|S_{21}| = 0.707$,
+        which halves it.</p>
     </div>
 </section>
 
@@ -664,8 +680,42 @@
     <p>This is a matrix <strong>M&ouml;bius transformation</strong>, and it carries the
     half-plane $\operatorname{Re}(\mathbf{Z}) \succeq 0$ onto the unit ball
     $\|\mathbf{S}\| \le 1$: passive networks become contractions, purely reactive ones land on
-    the boundary. Per-port or complex references need the appropriate $\sqrt{Z_0}$
-    normalisation factors.</p>
+    the boundary. Different <em>real</em> reference impedances at different ports need only the appropriate
+    per-port $\sqrt{Z_0}$ factors, and nothing conceptual changes. A <em>complex</em>
+    reference is a different matter.</p>
+
+    <h3>Three conventions that agree except at a complex reference</h3>
+    <p>The literature carries three definitions of the incident and reflected amplitudes.
+    They agree everywhere except when the reference impedance is complex &mdash; and there
+    the difference is physical, not cosmetic.</p>
+
+    <div class="diagram-grid cols-3">
+        <div class="diagram-panel accent-border">
+            <h4>Travelling (voltage) waves</h4>
+            <p>Same reference in both: $V^{\pm} = (V \pm Z_0 I)/2$.</p>
+            <p>$$\Gamma = \frac{Z - Z_0}{Z + Z_0}$$</p>
+            <p>$\Gamma = 0$ means <strong>reflectionless</strong> &mdash; no backward wave on
+            the line. The signal-integrity convention, and the one used here.</p>
+        </div>
+        <div class="diagram-panel y">
+            <h4>Power waves (Kurokawa)</h4>
+            <p>Conjugate in the outgoing term:
+            $b = (V - Z_0^{*}I)/2\sqrt{\operatorname{Re}Z_0}$.</p>
+            <p>$$\Gamma = \frac{Z - Z_0^{*}}{Z + Z_0}$$</p>
+            <p>$\Gamma = 0$ means <strong>conjugate matched</strong> &mdash; maximum power
+            transfer. A different termination.</p>
+        </div>
+        <div class="diagram-panel g">
+            <h4>Pseudo-waves</h4>
+            <p>Marks &amp; Williams' generalisation, for a reference impedance that is itself
+            complex and frequency-dependent &mdash; lossy line, waveguide, on wafer.</p>
+        </div>
+    </div>
+
+    <p>With a real $Z_0$ the conjugate does nothing and all three coincide, which is why the
+    distinction can be set aside for most 50&nbsp;&Omega; coaxial and PCB work. The conjugate
+    is <em>not</em> a normalisation factor you can absorb, so state which convention you are
+    using whenever $Z_0$ is not real.</p>
 
     <h3>For one port, this is the Smith chart</h3>
     <p>The matrices become scalars and the map reduces to</p>
@@ -790,6 +840,8 @@
     <ul>
         <li>Pozar, <em>Microwave Engineering</em>, 4th ed., Wiley, 2011.</li>
         <li>Kurokawa, "Power waves and the scattering matrix", <em>IEEE Trans. MTT</em>, 1965.</li>
+        <li>Bogatin, <a href="https://www.signalintegrityjournal.com/articles/1663-how-not-to-be-confused-by-s-parameters">"How not to be confused by S-parameters"</a>, <em>Signal Integrity Journal</em>, 2020 &mdash; the signal-integrity view, in voltage waves throughout.</li>
+        <li>Marks &amp; Williams, "A general waveguide circuit theory", <em>J. Res. NIST</em>, vol. 97, no. 5, 1992 &mdash; pseudo-waves for a complex, frequency-dependent reference.</li>
         <li>Gustavsen &amp; Semlyen, "Rational approximation of frequency domain responses by vector fitting", <em>IEEE Trans. Power Delivery</em>, 1999.</li>
         <li>Grivet-Talocia &amp; Gustavsen, <em>Passive Macromodeling</em>, Wiley, 2016.</li>
         <li>Horn &amp; Johnson, <em>Matrix Analysis</em>, 2nd ed., Cambridge, 2012.</li>
