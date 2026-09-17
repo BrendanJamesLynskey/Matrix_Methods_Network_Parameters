@@ -35,9 +35,21 @@ time-domain simulator.
 The same material as a written report:
 [Matrix_Methods_Network_Parameters.pdf](Matrix_Methods_Network_Parameters.pdf) (14 pp).
 
-## Companion deck
+## Companion decks
 
 [Matrix Concepts in Digital Filter Design](https://github.com/BrendanJamesLynskey/Matrix_Concepts_Digital_Filters)
 &mdash; the same three matrix structures in discrete time.
+
+[Equalisation in High-Speed Serial Links](https://github.com/BrendanJamesLynskey/SerDes_Equalisation)
+&mdash; where this algebra is put to work on one real 28 GBd backplane channel.
+
+## Where this is used
+
+The S-, Z- and Y-parameter machinery here underpins the eleven-deck
+[Signal Integrity &amp; High-Speed Digital Design](https://github.com/BrendanJamesLynskey/Signal_Integrity) series, in which every channel is
+built as a cascade of the two-ports defined in this deck. Deck 10 of that series applies
+the passivity, reciprocity and causality conditions set out here as practical quality
+checks on measured data, and deck 05 uses the mixed-mode decomposition to compute how
+intra-pair skew converts differential signal into common mode.
 
 Single-page HTML, KaTeX-rendered maths, no build step. Open `index.html` directly.
