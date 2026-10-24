@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-concept="scope" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,9 +99,80 @@
     /* deck-mobile-fix:phone */ @media (max-width:640px){.diagram-box,.tier-fill,.section-divider>span,.action-btn{white-space:normal;overflow-wrap:anywhere}.diagram-grid>*,.diagram-panel,.diagram-box,.code-block,.callout,.metric,.control-group,.control-row>*,.pipeline-body,.roll-track>*,.tier-fill,.timeline-row>*{min-width:0;max-width:100%}p,li,a,code,td,th,.callout,.diagram-panel{overflow-wrap:break-word}pre{max-width:100%;overflow-x:auto}table{display:block;max-width:100%;overflow-x:auto}.katex-display,.bits,.canvas-wrap,.influence-map-wrapper,.timeline-track,div:has(>.bank-cell){max-width:100%;overflow-x:auto;overflow-y:hidden}select,input,img,video,iframe,.action-btn{max-width:100%}canvas{max-width:100%;height:auto}}
     </style>
 
+<style id="deck-concept">
+html[data-concept=scope]{--ch1:#e8c25a;--ch2:#6fc8d8;--ch3:#e07ab0;--ch4:#8fd07a}
+html[data-concept=scope] .hero,html[data-concept=scope] header:has(.scp-fig){min-height:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);column-gap:2.75rem;align-items:start;align-content:start;justify-items:start;text-align:left;max-width:1180px;margin:0 auto;padding:2rem 1.75rem 3.5rem}
+html[data-concept=scope] .hero::before,html[data-concept=scope] .hero::after{display:none}
+html[data-concept=scope] .hero>*,html[data-concept=scope] header:has(.scp-fig)>*{grid-column:1;margin-left:0;margin-right:0}
+html[data-concept=scope] .hero .series-label,html[data-concept=scope] header:has(.scp-fig) .icon{display:none}
+html[data-concept=scope] .scp-head{grid-column:1/-1!important;width:100%;display:flex;justify-content:space-between;font-family:var(--font-mono,monospace);font-size:.8rem;color:var(--text-secondary,#9aa);border-bottom:1px solid var(--border,#333);padding-bottom:.5rem;margin-bottom:2.25rem}
+html[data-concept=scope] .scp-head span:first-child{color:var(--text-primary,#eee)}
+html[data-concept=scope] .hero h1{font-size:clamp(2rem,4.3vw,3.2rem);line-height:1.08;letter-spacing:-.015em;margin-bottom:1rem}
+html[data-concept=scope] .hero h1 .accent{color:var(--ch1)}
+html[data-concept=scope] .hero h1,html[data-concept=scope] .hero h1 *{background:none!important;-webkit-text-fill-color:currentColor!important}
+html[data-concept=scope] header:has(.scp-fig) h1{background:none!important;-webkit-text-fill-color:currentColor!important;color:var(--text,var(--text-primary,#eee));font-size:clamp(2rem,4.3vw,3.1rem);line-height:1.08}
+html[data-concept=scope] header:has(.scp-fig) .series-label,html[data-concept=scope] header:has(.scp-fig) div.subtitle{display:none}
+html[data-concept=scope] header:has(.scp-fig) .subtitle{margin:0 0 1rem;max-width:none;text-align:left}
+html[data-concept=scope] header:has(.scp-fig) .badge-row{justify-content:flex-start}
+html[data-concept=scope] header:has(.scp-fig) .badge{border-radius:2px;background:none}
+html[data-concept=scope] .hero .subtitle{max-width:none;margin-bottom:1.5rem}
+html[data-concept=scope] .hero .tags{justify-content:flex-start;gap:.25rem 1rem;margin-bottom:1.25rem}
+html[data-concept=scope] .tag{background:none;border:0;border-radius:0;padding:0;color:var(--text-primary);font-family:var(--font-mono);font-size:.8rem}
+html[data-concept=scope] .hero .tag::before{content:'';display:inline-block;width:.9em;height:.5em;margin-right:.4em;border:1.5px solid var(--ch1);border-width:1.5px 0 0 1.5px;vertical-align:.05em}
+html[data-concept=scope] .hero .tag:nth-child(4n+2)::before{border-color:var(--ch2)}
+html[data-concept=scope] .hero .tag:nth-child(4n+3)::before{border-color:var(--ch3)}
+html[data-concept=scope] .hero .tag:nth-child(4n)::before{border-color:var(--ch4)}
+html[data-concept=scope] .hero .pipeline{justify-content:flex-start;margin-bottom:0}
+html[data-concept=scope] .pipeline-step{background:none;border:0;border-radius:0;padding:0;color:var(--text-secondary);font-family:var(--font-mono);font-size:.78rem}
+html[data-concept=scope] .scp-fig{grid-column:2!important;grid-row:2/span 8;width:100%;margin:0}
+html[data-concept=scope] .scp-fig figcaption{font-size:.88rem;line-height:1.5;color:var(--text-secondary,#9aa);margin-top:.55rem}
+html[data-concept=scope] .concept-art{display:block;width:100%;height:auto;overflow:hidden;filter:drop-shadow(0 12px 22px rgba(0,0,0,.45))}
+html[data-concept=scope] .concept-art .sc-bezel{fill:#1d2122}
+html[data-concept=scope] .concept-art .sc-screen{fill:#06100f}
+html[data-concept=scope] .concept-art .sc-grat{stroke:#24403c;stroke-width:.6}
+html[data-concept=scope] .concept-art .sc-mid{stroke:#335a54;stroke-width:.8}
+html[data-concept=scope] .concept-art .sc-tr{fill:none;stroke-width:1.6;stroke-linejoin:round}
+html[data-concept=scope] .concept-art .sc-eye{stroke-width:.6;opacity:.35}
+html[data-concept=scope] .concept-art .ch1{stroke:var(--ch1);fill:var(--ch1)}
+html[data-concept=scope] .concept-art .ch2{stroke:var(--ch2);fill:var(--ch2)}
+html[data-concept=scope] .concept-art .ch3{stroke:var(--ch3);fill:var(--ch3)}
+html[data-concept=scope] .concept-art .ch4{stroke:var(--ch4);fill:var(--ch4)}
+html[data-concept=scope] .concept-art path.sc-tr{fill:none}
+html[data-concept=scope] .concept-art .sc-sm{fill:none;stroke:#3d6b64;stroke-width:.8}
+html[data-concept=scope] .concept-art .sc-mark{stroke:#c9d4d0;stroke-width:.8;stroke-dasharray:4 3}
+html[data-concept=scope] .concept-art .sc-dot{fill:#06100f;stroke:var(--ch1);stroke-width:1.4}
+html[data-concept=scope] .concept-art .sc-box{fill:#0d1d1b;stroke:#6f9d96;stroke-width:1}
+html[data-concept=scope] .concept-art .ch1b{stroke:var(--ch1)}
+html[data-concept=scope] .concept-art .ch2b{stroke:var(--ch2)}
+html[data-concept=scope] .concept-art .sc-win{fill:rgba(232,194,90,.08);stroke:none}
+html[data-concept=scope] .concept-art .sc-bar{stroke:none;opacity:.75}
+html[data-concept=scope] .concept-art .ch2b.sc-bar{fill:var(--ch2)}
+html[data-concept=scope] .concept-art .ch3b{fill:var(--ch3)}
+html[data-concept=scope] .concept-art .ch4b{fill:var(--ch4)}
+html[data-concept=scope] .concept-art .ch1b.sc-bar{fill:var(--ch1)}
+html[data-concept=scope] .concept-art text{font-family:var(--font-mono,monospace);font-size:9px;fill:#c9d4d0;stroke:none}
+html[data-concept=scope] .concept-art .sc-read.ch1{fill:var(--ch1)}
+html[data-concept=scope] .concept-art .sc-read.ch2{fill:var(--ch2)}
+html[data-concept=scope] .concept-art .sc-read.ch3{fill:var(--ch3)}
+html[data-concept=scope] .concept-art .sc-read.ch4{fill:var(--ch4)}
+html[data-concept=scope] .slide-number{font-family:var(--font-mono);font-size:.78rem;font-weight:400;color:var(--text-secondary);top:4.4rem;right:1.5rem}
+html[data-concept=scope] .slide-number::before{content:'CH\00a0'}
+html[data-concept=scope] .slide h2{color:var(--text-primary);padding-right:3.5rem}
+html[data-concept=scope] .slide h2::after{content:'';display:block;width:5rem;height:6px;margin-top:.55rem;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 6'%3E%3Cpath d='M0 5 L10 5 L12 1 L30 1 L32 5 L50 5 L52 1 L70 1 L72 5 L80 5' stroke='%23e8c25a' fill='none' stroke-width='1.2'/%3E%3C/svg%3E") 0 0/100% 100%}
+html[data-concept=scope] .callout .callout-label,html[data-concept=scope] .metric .metric-label{text-transform:none;letter-spacing:0;font-size:.82rem}
+html[data-concept=scope] .callout,html[data-concept=scope] .diagram-grid,html[data-concept=scope] .canvas-wrap,html[data-concept=scope] .control-panel,html[data-concept=scope] .diagram-panel,html[data-concept=scope] .metric,html[data-concept=scope] .btn,html[data-concept=scope] .tag{border-radius:2px}
+@media (max-width:820px){
+ html[data-concept=scope] .hero,html[data-concept=scope] header:has(.scp-fig){grid-template-columns:minmax(0,1fr);padding:1.25rem 1rem 2.5rem}
+ html[data-concept=scope] .scp-fig{grid-column:1!important;grid-row:auto;order:10;margin-top:1.5rem}
+}
+</style>
 </head>
 <body>
 <header class="hero">
+<!-- deck-concept:start -->
+<div class="scp-head" aria-hidden="true"><span>Matrix Methods in Engineering</span><span>Deck 01</span></div>
+<figure class="scp-fig"><svg class="concept-art" viewBox="0 0 440 300" role="img" aria-label="A Smith chart with the reflection coefficient of a series RLC load swept in frequency" xmlns="http://www.w3.org/2000/svg"><rect class="sc-bezel" width="440" height="300" rx="8"/><rect class="sc-screen" x="20" y="20" width="400" height="240" rx="3"/><line class="sc-grat" x1="20" x2="20" y1="20" y2="260"/><line class="sc-grat" x1="60" x2="60" y1="20" y2="260"/><line class="sc-grat" x1="100" x2="100" y1="20" y2="260"/><line class="sc-grat" x1="140" x2="140" y1="20" y2="260"/><line class="sc-grat" x1="180" x2="180" y1="20" y2="260"/><line class="sc-grat sc-mid" x1="220" x2="220" y1="20" y2="260"/><line class="sc-grat" x1="260" x2="260" y1="20" y2="260"/><line class="sc-grat" x1="300" x2="300" y1="20" y2="260"/><line class="sc-grat" x1="340" x2="340" y1="20" y2="260"/><line class="sc-grat" x1="380" x2="380" y1="20" y2="260"/><line class="sc-grat" x1="420" x2="420" y1="20" y2="260"/><line class="sc-grat" x1="20" x2="420" y1="20" y2="20"/><line class="sc-grat" x1="20" x2="420" y1="50" y2="50"/><line class="sc-grat" x1="20" x2="420" y1="80" y2="80"/><line class="sc-grat" x1="20" x2="420" y1="110" y2="110"/><line class="sc-grat sc-mid" x1="20" x2="420" y1="140" y2="140"/><line class="sc-grat" x1="20" x2="420" y1="170" y2="170"/><line class="sc-grat" x1="20" x2="420" y1="200" y2="200"/><line class="sc-grat" x1="20" x2="420" y1="230" y2="230"/><line class="sc-grat" x1="20" x2="420" y1="260" y2="260"/><line class="sc-grat" x1="20" x2="20" y1="137" y2="143"/><line class="sc-grat" x1="28" x2="28" y1="137" y2="143"/><line class="sc-grat" x1="36" x2="36" y1="137" y2="143"/><line class="sc-grat" x1="44" x2="44" y1="137" y2="143"/><line class="sc-grat" x1="52" x2="52" y1="137" y2="143"/><line class="sc-grat" x1="60" x2="60" y1="137" y2="143"/><line class="sc-grat" x1="68" x2="68" y1="137" y2="143"/><line class="sc-grat" x1="76" x2="76" y1="137" y2="143"/><line class="sc-grat" x1="84" x2="84" y1="137" y2="143"/><line class="sc-grat" x1="92" x2="92" y1="137" y2="143"/><line class="sc-grat" x1="100" x2="100" y1="137" y2="143"/><line class="sc-grat" x1="108" x2="108" y1="137" y2="143"/><line class="sc-grat" x1="116" x2="116" y1="137" y2="143"/><line class="sc-grat" x1="124" x2="124" y1="137" y2="143"/><line class="sc-grat" x1="132" x2="132" y1="137" y2="143"/><line class="sc-grat" x1="140" x2="140" y1="137" y2="143"/><line class="sc-grat" x1="148" x2="148" y1="137" y2="143"/><line class="sc-grat" x1="156" x2="156" y1="137" y2="143"/><line class="sc-grat" x1="164" x2="164" y1="137" y2="143"/><line class="sc-grat" x1="172" x2="172" y1="137" y2="143"/><line class="sc-grat" x1="180" x2="180" y1="137" y2="143"/><line class="sc-grat" x1="188" x2="188" y1="137" y2="143"/><line class="sc-grat" x1="196" x2="196" y1="137" y2="143"/><line class="sc-grat" x1="204" x2="204" y1="137" y2="143"/><line class="sc-grat" x1="212" x2="212" y1="137" y2="143"/><line class="sc-grat" x1="220" x2="220" y1="137" y2="143"/><line class="sc-grat" x1="228" x2="228" y1="137" y2="143"/><line class="sc-grat" x1="236" x2="236" y1="137" y2="143"/><line class="sc-grat" x1="244" x2="244" y1="137" y2="143"/><line class="sc-grat" x1="252" x2="252" y1="137" y2="143"/><line class="sc-grat" x1="260" x2="260" y1="137" y2="143"/><line class="sc-grat" x1="268" x2="268" y1="137" y2="143"/><line class="sc-grat" x1="276" x2="276" y1="137" y2="143"/><line class="sc-grat" x1="284" x2="284" y1="137" y2="143"/><line class="sc-grat" x1="292" x2="292" y1="137" y2="143"/><line class="sc-grat" x1="300" x2="300" y1="137" y2="143"/><line class="sc-grat" x1="308" x2="308" y1="137" y2="143"/><line class="sc-grat" x1="316" x2="316" y1="137" y2="143"/><line class="sc-grat" x1="324" x2="324" y1="137" y2="143"/><line class="sc-grat" x1="332" x2="332" y1="137" y2="143"/><line class="sc-grat" x1="340" x2="340" y1="137" y2="143"/><line class="sc-grat" x1="348" x2="348" y1="137" y2="143"/><line class="sc-grat" x1="356" x2="356" y1="137" y2="143"/><line class="sc-grat" x1="364" x2="364" y1="137" y2="143"/><line class="sc-grat" x1="372" x2="372" y1="137" y2="143"/><line class="sc-grat" x1="380" x2="380" y1="137" y2="143"/><line class="sc-grat" x1="388" x2="388" y1="137" y2="143"/><line class="sc-grat" x1="396" x2="396" y1="137" y2="143"/><line class="sc-grat" x1="404" x2="404" y1="137" y2="143"/><line class="sc-grat" x1="412" x2="412" y1="137" y2="143"/><line class="sc-grat" x1="420" x2="420" y1="137" y2="143"/><g class="sc-traces"><circle class="sc-sm" cx="220" cy="140" r="166.7"/><circle class="sc-sm" cx="247.8" cy="140" r="138.9"/><circle class="sc-sm" cx="275.6" cy="140" r="111.1"/><circle class="sc-sm" cx="303.3" cy="140" r="83.3"/><circle class="sc-sm" cx="331.1" cy="140" r="55.6"/><circle class="sc-sm" cx="358.9" cy="140" r="27.8"/><clipPath id="smc"><circle cx="220" cy="140" r="166.7"/></clipPath><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="-693.3" r="833.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="973.3" r="833.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="-193.3" r="333.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="473.3" r="333.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="-26.7" r="166.7"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="306.7" r="166.7"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="56.7" r="83.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="223.3" r="83.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="106.7" r="33.3"/><circle class="sc-sm" clip-path="url(#smc)" cx="386.7" cy="173.3" r="33.3"/><line class="sc-sm" x1="53.3" x2="386.7" y1="140" y2="140"/><path class="sc-tr ch1" d="M382 170.8 L378.9 179.4 L375.2 187.6 L370.8 195.3 L365.8 202.5 L360.4 209.2 L354.6 215.2 L348.4 220.7 L342 225.5 L335.4 229.7 L328.7 233.4 L321.9 236.4 L315.2 238.9 L308.5 240.9 L301.8 242.4 L295.3 243.4 L289 244 L282.8 244.2 L276.8 244 L271.1 243.5 L265.5 242.8 L260.2 241.7 L255 240.5 L250.1 239 L245.5 237.4 L241 235.6 L236.8 233.6 L232.8 231.5 L229 229.4 L225.4 227.1 L222 224.8 L218.8 222.4 L215.7 219.9 L212.8 217.4 L210.1 214.9 L207.6 212.4 L205.2 209.8 L202.9 207.2 L200.8 204.7 L198.9 202.1 L197 199.5 L195.3 196.9 L193.6 194.4 L192.1 191.8 L190.7 189.3 L189.4 186.8 L188.2 184.3 L187.1 181.8 L186.1 179.3 L185.1 176.9 L184.2 174.5 L183.4 172.1 L182.7 169.8 L182 167.5 L181.4 165.2 L180.9 162.9 L180.4 160.7 L180 158.5 L179.6 156.3 L179.3 154.1 L179 152 L178.8 149.9 L178.6 147.8 L178.5 145.8 L178.4 143.8 L178.3 141.8 L178.3 139.9 L178.4 137.9 L178.4 136 L178.5 134.2 L178.6 132.3 L178.8 130.5 L178.9 128.7 L179.2 127 L179.4 125.2 L179.6 123.5 L179.9 121.8 L180.2 120.2 L180.6 118.5 L180.9 116.9 L181.3 115.4 L181.7 113.8 L182.1 112.3 L182.5 110.7 L183 109.3 L183.4 107.8 L183.9 106.4 L184.4 104.9 L184.9 103.5 L185.4 102.2 L186 100.8 L186.5 99.5 L187.1 98.2 L187.7 96.9 L188.3 95.6 L188.9 94.4 L189.5 93.1 L190.1 91.9 L190.7 90.7 L191.4 89.6 L192 88.4 L192.7 87.3 L193.3 86.2 L194 85.1 L194.7 84 L195.4 82.9 L196 81.9 L196.7 80.9 L197.4 79.9 L198.2 78.9 L198.9 77.9 L199.6 76.9 L200.3 76 L201 75.1 L201.8 74.2 L202.5 73.3 L203.2 72.4 L204 71.5 L204.7 70.7 L205.5 69.9 L206.2 69 L207 68.2 L207.7 67.5 L208.5 66.7 L209.3 65.9 L210 65.2 L210.8 64.4 L211.6 63.7 L212.3 63 L213.1 62.3 L213.9 61.6 L214.6 61 L215.4 60.3 L216.2 59.7 L216.9 59.1 L217.7 58.4 L218.5 57.8 L219.3 57.2 L220 56.6 L220.8 56.1 L221.6 55.5 L222.3 55 L223.1 54.4 L223.9 53.9 L224.6 53.4 L225.4 52.9 L226.2 52.4 L226.9 51.9 L227.7 51.4 L228.5 51 L229.2 50.5 L230 50 L230.7 49.6 L231.5 49.2 L232.2 48.8 L233 48.4 L233.7 48 L234.5 47.6 L235.2 47.2 L236 46.8 L236.7 46.4 L237.5 46.1 L238.2 45.7 L238.9 45.4 L239.7 45.1 L240.4 44.7 L241.1 44.4 L241.8 44.1 L242.6 43.8 L243.3 43.5 L244 43.2 L244.7 42.9 L245.4 42.7 L246.1 42.4 L246.8 42.1 L247.5 41.9 L248.2 41.6 L248.9 41.4 L249.6 41.2 L250.3 40.9 L251 40.7 L251.7 40.5 L252.4 40.3 L253.1 40.1 L253.7 39.9 L254.4 39.7 L255.1 39.5 L255.8 39.3 L256.4 39.1 L257.1 39 L257.8 38.8 L258.4 38.7 L259.1 38.5 L259.7 38.4 L260.4 38.2 L261 38.1 L261.6 37.9 L262.3 37.8 L262.9 37.7 L263.5 37.6"/></g><text class="sc-read ch1" x="24" y="282">S11</text><text class="sc-read sc-read" x="128" y="282">0.1–6 GHz</text><text class="sc-read sc-read" x="232" y="282">Z₀ = 50 Ω</text><text class="sc-read sc-read" x="336" y="282">series RLC</text></svg><figcaption>S-parameters on a Smith chart: the reflection of a series RLC load, swept from 0.1 to 6 GHz.</figcaption></figure>
+<!-- deck-concept:end -->
     <div class="series-label">Matrix Methods in Engineering &mdash; Deck 01</div>
     <h1>Network Parameters: <span class="accent">S, Z and Y</span></h1>
     <p class="subtitle">One linear operator, three coordinate systems &mdash; and the matrix
